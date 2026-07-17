@@ -1,17 +1,21 @@
 import loginPage from '../../pagesObjects/LoginPage';
 import productPage from '../../pagesObjects/ProductPage';
 import { createProduct } from '../../utils/productFactory';
+import { createApiUser } from '../../utils/userFactory';
 
 describe('Cadastro de produto como administrador', () => {
   it('deve cadastrar um novo produto com imagem', () => {
+    const admin = createApiUser('true');
     const product = {
       ...createProduct(),
       description: 'Produto cadastrado para o teste da Ambev',
       imagePath: 'cypress/fixtures/images/produto.jpg',
     };
 
+    cy.request('POST', `${Cypress.env('apiUrl')}/usuarios`, admin);
+
     loginPage.visit();
-    loginPage.login('fulano@qa.com', 'teste');
+    loginPage.login(admin.email, admin.password);
 
     productPage.openRegistration();
     productPage.registerProduct(product);
@@ -21,8 +25,12 @@ describe('Cadastro de produto como administrador', () => {
   });
 
   it('não deve cadastrar produto sem preencher os campos obrigatórios', () => {
+    const admin = createApiUser('true');
+
+    cy.request('POST', `${Cypress.env('apiUrl')}/usuarios`, admin);
+
     loginPage.visit();
-    loginPage.login('fulano@qa.com', 'teste');
+    loginPage.login(admin.email, admin.password);
 
     productPage.openRegistration();
     productPage.submit();

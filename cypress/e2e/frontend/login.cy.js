@@ -1,9 +1,14 @@
 import loginPage from '../../pagesObjects/LoginPage';
+import { createApiUser } from '../../utils/userFactory';
 
 describe('Login de administrador', () => {
   it('deve acessar a lista de usuários', () => {
+    const admin = createApiUser('true');
+
+    cy.request('POST', `${Cypress.env('apiUrl')}/usuarios`, admin);
+
     loginPage.visit();
-    loginPage.login('fulano@qa.com', 'teste');
+    loginPage.login(admin.email, admin.password);
     loginPage.listUsers();
 
     cy.url().should('include', '/listarusuarios');

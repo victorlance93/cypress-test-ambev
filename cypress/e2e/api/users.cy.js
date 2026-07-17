@@ -1,11 +1,17 @@
+import { createApiUser } from '../../utils/userFactory';
+
 describe('API de usuários', () => {
   it('deve realizar login e listar todos os usuários', () => {
+    const admin = createApiUser('true');
+
+    cy.request('POST', `${Cypress.env('apiUrl')}/usuarios`, admin);
+
     cy.request({
       method: 'POST',
       url: `${Cypress.env('apiUrl')}/login`,
       body: {
-        email: 'fulano@qa.com',
-        password: 'teste',
+        email: admin.email,
+        password: admin.password,
       },
     }).then((loginResponse) => {
       expect(loginResponse.status).to.eq(200);

@@ -7,3 +7,14 @@ export function createUser() {
     password: '123456',
   };
 }
+
+export function createApiUser(administrator = 'false') {
+  const user = createUser();
+
+  return {
+    nome: user.name,
+    email: user.email,
+    password: user.password,
+    administrador: administrator,
+  };
+}

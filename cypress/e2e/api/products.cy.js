@@ -1,12 +1,17 @@
 import { faker } from '@faker-js/faker';
+import { createApiUser } from '../../utils/userFactory';
 
 describe('API de produtos', () => {
   let token;
 
   before(() => {
+    const admin = createApiUser('true');
+
+    cy.request('POST', `${Cypress.env('apiUrl')}/usuarios`, admin);
+
     cy.request('POST', `${Cypress.env('apiUrl')}/login`, {
-      email: 'fulano@qa.com',
-      password: 'teste',
+      email: admin.email,
+      password: admin.password,
     }).then((response) => {
       token = response.body.authorization;
     });
