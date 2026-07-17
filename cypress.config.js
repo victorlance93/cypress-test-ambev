@@ -1,7 +1,7 @@
 const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
-  defaultCommandTimeout: 15000,
+  defaultCommandTimeout: 10000,
   e2e: {
     baseUrl: 'https://front.serverest.dev',
     env: {
