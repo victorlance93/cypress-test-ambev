@@ -1,4 +1,4 @@
-import registerPage from '../../pagesObejcts/RegisterPage';
+import registerPage from '../../pagesObjects/RegisterPage';
 import { createUser } from '../../utils/userFactory';
 
 describe('Cadastro de usuário', () => {
