@@ -1,0 +1,26 @@
+{
+  "name": "cypress-test-ambev",
+  "version": "1.0.0",
+  "description": "Criação de um teste técnico com cypress da a empresa Ambev",
+  "main": "index.js",
+  "scripts": {
+  "cy:open": "cypress open",
+  "cy:run": "cypress run",
+  "test": "cypress run"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victorlance93/cypress-test-ambev.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/victorlance93/cypress-test-ambev/issues"
+  },
+  "homepage": "https://github.com/victorlance93/cypress-test-ambev#readme",
+  "devDependencies": {
+    "cypress": "^15.18.1"
+  }
+}
