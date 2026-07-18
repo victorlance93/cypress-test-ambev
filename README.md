@@ -135,10 +135,20 @@ As factories em `utils` geram usuários e produtos únicos com Faker. Isso reduz
 
 Os cenários utilizam `cy.request()` e validam status HTTP, mensagens de negócio e campos relevantes do contrato. A preparação de usuários ocorre pela API para que os testes não dependam de uma conta fixa.
 
+### Comandos customizados
+
+Os fluxos repetidos de API foram centralizados em `cypress/support/commands.js`:
+
+- `cy.createApiUser(administrator, overrides)` cria usuários comuns ou administradores com massa dinâmica.
+- `cy.loginByApi(user)` autentica um usuário criado durante o teste e retorna o token JWT.
+
+Essa abordagem reduz duplicação entre os specs, melhora a legibilidade dos cenários e facilita manutenção futura.
+
 ## Decisões técnicas
 
 - Seletores `data-testid` foram priorizados por serem mais estáveis que classes CSS.
 - Dados aleatórios evitam falhas por registros duplicados.
+- Comandos customizados encapsulam setup recorrente de autenticação e criação de usuários.
 - As assertions verificam resultado de negócio, não apenas a conclusão da requisição.
 - O cadastro de produto confirma a URL e a presença do nome criado na listagem.
 - O cenário negativo de login confirma a permanência na rota e a mensagem apresentada.
@@ -168,6 +178,13 @@ Screenshots são gravados automaticamente em `cypress/screenshots` quando um tes
 ## Limitações conhecidas
 
 Os testes dependem da disponibilidade dos ambientes públicos do ServeRest. IDs de produtos usados nos cenários de carrinho e atualização precisam continuar disponíveis no ambiente.
+
+## Checklist de entrega
+
+- Projeto versionado sem credenciais ou dados sensíveis.
+- Execução documentada para suíte completa, frontend e API.
+- CI configurado para validar a suíte em push e pull request.
+- Envio do `.zip` sem a pasta `node_modules`.
 
 ## Autor
 
