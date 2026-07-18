@@ -1,18 +1,15 @@
 import loginPage from '../../pagesObjects/LoginPage';
-import { createApiUser } from '../../utils/userFactory';
 
 describe('Login de administrador', () => {
   it('deve acessar a lista de usuários', () => {
-    const admin = createApiUser('true');
+    cy.createApiUser('true').then((admin) => {
+      loginPage.visit();
+      loginPage.login(admin.email, admin.password);
+      loginPage.listUsers();
 
-    cy.request('POST', `${Cypress.env('apiUrl')}/usuarios`, admin);
-
-    loginPage.visit();
-    loginPage.login(admin.email, admin.password);
-    loginPage.listUsers();
-
-    cy.url().should('include', '/listarusuarios');
-    cy.contains('Lista dos usuários').should('be.visible');
+      cy.url().should('include', '/listarusuarios');
+      cy.contains('Lista dos usuários').should('be.visible');
+    });
   });
 
   it('não deve fazer login com credenciais inválidas', () => {
